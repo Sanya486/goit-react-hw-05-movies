@@ -12,7 +12,7 @@ import '@fontsource/roboto/700.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/goit-react-hw-5-movies">
       <App />
     </BrowserRouter>
   </React.StrictMode>
