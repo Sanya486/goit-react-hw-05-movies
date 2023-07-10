@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { AdditionalInfoSt } from './MovieDetails.styled';
+
+import {
+  Card,
+  CardActions,
+  Typography,
+  CardContent,
+  Divider
+} from '@mui/material';
+
+import { CardMediaSt, ImageContainer } from './MovieDetails.styled';
+
 
 import fetchMovieDetails from 'fetches/fetchMovieDetails';
 
@@ -9,9 +22,6 @@ const MovieDetails = () => {
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from ?? '/movies');
 
-  console.log(location, 'location')
-
-  console.log(window.location)
   useEffect(() => {
     async function fetchFilmData() {
       const data = await fetchMovieDetails(moviesId);
@@ -20,33 +30,48 @@ const MovieDetails = () => {
     fetchFilmData();
   }, [moviesId]);
   return (
-    <div>
-      <Link to={backLinkHref.current}>Back to </Link>
-      <div>
-        <img
-          src={'https://image.tmdb.org/t/p/w400' + filmData?.poster_path}
-          alt=""
+    <Card sx={{ maxWidth: 1200 }}>
+      <AdditionalInfoSt to={backLinkHref.current}>
+        <ArrowBackIosIcon />
+        Back to Movies
+      </AdditionalInfoSt>
+      <ImageContainer>
+        <CardMediaSt
+          sx={{ height: 1000, mt: 1.4 }}
+          image={'https://image.tmdb.org/t/p/original/' + filmData?.poster_path}
+          title="green iguana"
         />
-        <h1>{filmData?.title}</h1>
-        <p>User Score: {Math.round(filmData?.popularity) + '%'}</p>
-        <h2>Overview</h2>
-        <p>{filmData?.overview}</p>
-        <h2>Genres</h2>
-        <p>{filmData?.genres.map(genre => genre.name).join(', ')}</p>
-      </div>
-      <div>
-        <h3>Additional information</h3>
-        <ul>
-          <li>
-            <Link to="cast">Cast</Link>
-          </li>
-          <li>
-            <Link to="reviews">Reviews</Link>
-          </li>
-        </ul>
-      </div>
+      </ImageContainer>
+      <CardContent>
+        <Typography gutterBottom variant="h3" component="div">
+          {filmData?.title}
+        </Typography>
+        <Typography gutterBottom variant="h6" component="span">
+          User Score:
+        </Typography>
+        <Typography variant="string" color="text.secondary">
+          {' ' + Math.round(filmData?.popularity) + '%'}
+        </Typography>
+        <Typography gutterBottom variant="h6" component="div">
+          Overview
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {filmData?.overview}
+        </Typography>
+        <Typography gutterBottom variant="h6" component="div">
+          Genres
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {filmData?.genres.map(genre => genre.name).join(', ')}
+        </Typography>
+      </CardContent>
+      <Divider />
+      <CardActions>
+        <AdditionalInfoSt to="cast">Cast</AdditionalInfoSt>
+        <AdditionalInfoSt to="reviews">Reviews</AdditionalInfoSt>
+      </CardActions>
       <Outlet />
-    </div>
+    </Card>
   );
 };
 

@@ -4,14 +4,13 @@ import { useSearchParams } from 'react-router-dom';
 import fetchSearchMovie from 'fetches/fetchSearchMovie';
 import FilmList from 'components/FilmList/FilmList';
 
-import { Button, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { TextFieldSt, ButtonSt, FormSt } from './Movies.styled';
 
 const Movies = () => {
   const [querySt, setQuerySt] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query');
-
-
 
   useEffect(() => {
     if (queryParam === '' || queryParam === null) return;
@@ -24,7 +23,6 @@ const Movies = () => {
     fetchFilm();
   }, [queryParam]);
 
-
   function handlerSubmit(e) {
     e.preventDefault();
     const form = e.currentTarget;
@@ -33,18 +31,18 @@ const Movies = () => {
   }
   return (
     <div>
-      <form onSubmit={handlerSubmit}>
-        <TextField
+      <FormSt onSubmit={handlerSubmit}>
+        <TextFieldSt
           id="outlined-basic"
           label="Enter movie name"
           variant="outlined"
           type="text"
           name="query"
         />
-        <Button variant="contained" type="submit">
-          Search
-        </Button>
-      </form>
+        <ButtonSt variant="contained" type="submit">
+          <SearchIcon fontSize="large" />
+        </ButtonSt>
+      </FormSt>
       <ul>{querySt.length !== 0 && <FilmList films={querySt} />}</ul>
     </div>
   );

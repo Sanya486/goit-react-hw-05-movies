@@ -1,6 +1,16 @@
 import fetchCast from 'fetches/fetchCast';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import {
+  Card,
+  Typography,
+  CardContent,
+  CardMedia,
+  CardActionArea,
+
+} from '@mui/material';
+
+import { FlexContainer } from './Cast.styled';
 
 const Cast = () => {
   const [cast, setCast] = useState();
@@ -18,27 +28,33 @@ const Cast = () => {
   console.log(cast);
 
   if (cast?.length === 0) {
-    return <>Sorrty</>
+    return <>Sorry</>
   }
 
   
   return (
-    <>
-      <ul>
-        {cast?.map(character => {
-          return (
-            <li>
-              <img
-                src={'https://image.tmdb.org/t/p/w400' + character.profile_path}
-                alt=""
-              />
-              <h3>{character.name}</h3>
-              <p>Character: {character.character}</p>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+    <FlexContainer>
+      {cast?.map(character => {
+        return (
+          <Card sx={{ maxWidth: 200 }}>
+            <CardMedia
+              component="img"
+              width="3500"
+              image={'https://image.tmdb.org/t/p/w400' + character.profile_path}
+              alt=""
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {character.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Character: {character.character}
+              </Typography>
+            </CardContent>
+          </Card>
+        );
+      })}
+    </FlexContainer>
   );
 };
 
