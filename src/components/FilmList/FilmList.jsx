@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ListItem, ListItemAvatar, Avatar } from '@mui/material';
 import MovieIcon from '@mui/icons-material/Movie';
+import PropTypes from 'prop-types';
 
 const FilmList = ({ films }) => {
   const location = useLocation();
@@ -21,5 +22,9 @@ const FilmList = ({ films }) => {
     </>
   );
 };
+
+FilmList.propTypes = {
+  films: PropTypes.array.isRequired,
+}
 
 export default FilmList;
