@@ -7,8 +7,8 @@ export const ListSt = styled(List)`
   justify-content: flex-start;
   gap: 10px;
   & .active {
-    color: #1976d2;
-    background-color: #fff;
+    color: #fff;
+    background-color: #1976d2;
   }
 `;
 
@@ -24,13 +24,13 @@ export const NavLinkSt = styled(NavLink)`
 
   appearance: button;
   backface-visibility: hidden;
-  background-color: #1976d2;
+  background-color: #fff;
   border-radius: 6px;
   border-width: 0;
   box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
     rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #1976d2;
   cursor: pointer;
   font-size: 20px;
   height: 44px;
