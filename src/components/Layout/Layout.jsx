@@ -1,20 +1,22 @@
-import {  NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom';
 
-import { Container } from 'utils/Container'
+import { Container } from 'utils/Container';
+import {Divider} from '@mui/material';
 
 export default function Layout() {
   return (
     <Container>
-      <header>
-        <nav>
+      <nav>
+        <ul>
           <li>
-            <NavLink to='/'>Home</NavLink>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to='/movies'>Movies</NavLink>
+            <NavLink to="/movies">Movies</NavLink>
           </li>
-        </nav>
-      </header>
+        </ul>
+      </nav>
+      <Divider />
       <Outlet />
     </Container>
   );
