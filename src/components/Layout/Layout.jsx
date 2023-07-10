@@ -1,18 +1,21 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import {  NavLink, Outlet } from 'react-router-dom'
 
-import { Container } from 'components/utils/Container'
+import { Container } from 'utils/Container'
 
 export default function Layout() {
   return (
     <Container>
       <header>
-        <ul>
-          <li>Home</li>
-          <li>Movies</li>
-        </ul>
-          </header>
-          <Outlet/>
+        <nav>
+          <li>
+            <NavLink to='/'>Home</NavLink>
+          </li>
+          <li>
+            <NavLink to='/movies'>Movies</NavLink>
+          </li>
+        </nav>
+      </header>
+      <Outlet />
     </Container>
   );
 }
