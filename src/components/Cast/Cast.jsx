@@ -4,17 +4,24 @@ import { useParams } from 'react-router-dom';
 
 const Cast = () => {
   const [cast, setCast] = useState();
-    const { moviesId } = useParams();
+  const { moviesId } = useParams();
 
   useEffect(() => {
     async function fetchCastDetails() {
       const data = await fetchCast(moviesId);
       console.log(data.cast);
-      setCast(data.cast)
+      setCast(data.cast);
     }
-    fetchCastDetails()
+    fetchCastDetails();
   }, [moviesId]);
 
+  console.log(cast);
+
+  if (cast?.length === 0) {
+    return <>Sorrty</>
+  }
+
+  
   return (
     <>
       <ul>
@@ -30,7 +37,6 @@ const Cast = () => {
             </li>
           );
         })}
-        
       </ul>
     </>
   );

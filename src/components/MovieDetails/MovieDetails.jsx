@@ -1,11 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 import fetchMovieDetails from 'fetches/fetchMovieDetails';
 
 const MovieDetails = () => {
   const [filmData, setfilmData] = useState();
   const { moviesId } = useParams();
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
+
+  console.log(location, 'location')
+
+  console.log(window.location)
   useEffect(() => {
     async function fetchFilmData() {
       const data = await fetchMovieDetails(moviesId);
@@ -15,6 +21,7 @@ const MovieDetails = () => {
   }, [moviesId]);
   return (
     <div>
+      <Link to={backLinkHref.current}>Back to </Link>
       <div>
         <img
           src={'https://image.tmdb.org/t/p/w400' + filmData?.poster_path}

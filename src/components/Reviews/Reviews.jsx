@@ -15,21 +15,21 @@ const Reviews = () => {
     }
     fetchReviewsList();
   }, [moviesId]);
+
+  if (reviews?.length === 0) {
+    return <p>We don`t have any reviews for this movie</p>;
+  }
   return (
     <>
       <ul>
-        {reviews?.length === 0 ? (
-          <p>We don`t have any reviews for this movie</p>
-        ) : (
-          reviews?.map(review => {
-            return (
-              <li>
-                <h3>Author: {review.author}</h3>
-                <p>{review.content}</p>
-              </li>
-            );
-          })
-        )}
+        {reviews?.map(review => {
+          return (
+            <li>
+              <h3>Author: {review.author}</h3>
+              <p>{review.content}</p>
+            </li>
+          );
+        })}
       </ul>
     </>
   );
