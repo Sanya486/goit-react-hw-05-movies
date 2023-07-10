@@ -1,7 +1,7 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { Container } from 'utils/Container';
-import { Divider, List, ListItem } from '@mui/material';
+import { Divider} from '@mui/material';
 import { ListSt, ListItemSt, NavLinkSt } from './Layout.styled';
 
 export default function Layout() {

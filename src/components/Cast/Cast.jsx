@@ -6,8 +6,6 @@ import {
   Typography,
   CardContent,
   CardMedia,
-  CardActionArea,
-
 } from '@mui/material';
 
 import { FlexContainer } from './Cast.styled';
