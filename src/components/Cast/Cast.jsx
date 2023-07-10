@@ -17,7 +17,6 @@ const Cast = () => {
   useEffect(() => {
     async function fetchCastDetails() {
       const data = await fetchCast(moviesId);
-      console.log(data.cast);
       setCast(data.cast);
     }
     fetchCastDetails();
