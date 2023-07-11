@@ -5,10 +5,12 @@ import fetchSearchMovie from 'fetches/fetchSearchMovie';
 import FilmList from 'components/FilmList/FilmList';
 
 import SearchIcon from '@mui/icons-material/Search';
+import LinearProgress from '@mui/material/LinearProgress';
 import { TextFieldSt, ButtonSt, FormSt } from './Movies.styled';
 
 const Movies = () => {
   const [querySt, setQuerySt] = useState('');
+  const [isLoaderShown, setIsLoaderShown] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get('query');
 
@@ -16,8 +18,14 @@ const Movies = () => {
     if (queryParam === '' || queryParam === null) return;
 
     async function fetchFilm() {
-      const queryData = await fetchSearchMovie(queryParam);
-      setQuerySt(queryData.results);
+      try {
+        setIsLoaderShown(true);
+        const queryData = await fetchSearchMovie(queryParam);
+        setQuerySt(queryData.results);
+        setIsLoaderShown(false);
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     fetchFilm();
@@ -43,6 +51,7 @@ const Movies = () => {
           <SearchIcon fontSize="large" />
         </ButtonSt>
       </FormSt>
+      {isLoaderShown && <LinearProgress />}
       <ul>{querySt.length !== 0 && <FilmList films={querySt} />}</ul>
     </div>
   );

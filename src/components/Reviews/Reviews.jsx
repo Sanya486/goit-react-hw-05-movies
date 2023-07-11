@@ -2,16 +2,24 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import fetchReviews from 'fetches/fetchReviews';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState();
   const { moviesId } = useParams();
+    const [isLoaderShown, setIsLoaderShown] = useState(false);
+
 
   useEffect(() => {
     async function fetchReviewsList() {
-      const data = await fetchReviews(moviesId);
-      console.log(data);
-      setReviews(data.results);
+      try {
+        setIsLoaderShown(true);
+        const data = await fetchReviews(moviesId);
+        setReviews(data.results);
+        setIsLoaderShown(false);
+      } catch (error) {
+        console.log(error)
+      }
     }
     fetchReviewsList();
   }, [moviesId]);
@@ -21,10 +29,11 @@ const Reviews = () => {
   }
   return (
     <>
+      {isLoaderShown && <LinearProgress />}
       <ul>
-        {reviews?.map(review => {
+        {reviews?.map((review, index) => {
           return (
-            <li>
+            <li key={index}>
               <h3>Author: {review.author}</h3>
               <p>{review.content}</p>
             </li>

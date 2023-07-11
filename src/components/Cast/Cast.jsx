@@ -9,20 +9,27 @@ import {
 } from '@mui/material';
 
 import { FlexContainer } from './Cast.styled';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Cast = () => {
   const [cast, setCast] = useState();
   const { moviesId } = useParams();
+ const [isLoaderShown, setIsLoaderShown] = useState(false);
 
   useEffect(() => {
     async function fetchCastDetails() {
-      const data = await fetchCast(moviesId);
-      setCast(data.cast);
+      try {
+         setIsLoaderShown(true);
+         const data = await fetchCast(moviesId);
+         setCast(data.cast);
+         setIsLoaderShown(false);
+      } catch (error) {
+        console.log(error)
+      }
     }
     fetchCastDetails();
   }, [moviesId]);
 
-  console.log(cast);
 
   if (cast?.length === 0) {
     return <>Sorry</>
@@ -31,9 +38,10 @@ const Cast = () => {
   
   return (
     <FlexContainer>
-      {cast?.map(character => {
+      {isLoaderShown && <LinearProgress />}
+      {cast?.map((character, index) => {
         return (
-          <Card sx={{ maxWidth: 200 }}>
+          <Card key={index} sx={{ maxWidth: 200 }}>
             <CardMedia
               component="img"
               width="3500"
