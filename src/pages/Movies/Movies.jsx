@@ -4,9 +4,9 @@ import { useSearchParams } from 'react-router-dom';
 import fetchSearchMovie from 'fetches/fetchSearchMovie';
 import FilmList from 'components/FilmList/FilmList';
 
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import LinearProgress from '@mui/material/LinearProgress';
-import { TextFieldSt, ButtonSt, FormSt } from './Movies.styled';
+import { TextFieldSt, FormSt } from './Movies.styled';
 
 const Movies = () => {
   const [querySt, setQuerySt] = useState('');
@@ -31,25 +31,26 @@ const Movies = () => {
     fetchFilm();
   }, [queryParam]);
 
-  function handlerSubmit(e) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    setSearchParams({ query: form.elements.query.value });
-    form.reset();
-  }
+  // function handlerSubmit(e) {
+  //   e.preventDefault();
+  //   const form = e.currentTarget;
+  //   setSearchParams({ query: form.elements.query.value });
+  // }
   return (
     <div>
-      <FormSt onSubmit={handlerSubmit}>
+      <FormSt>
         <TextFieldSt
           id="outlined-basic"
           label="Enter movie name"
           variant="outlined"
           type="text"
           name="query"
+          value={queryParam}
+          onChange={(e) => setSearchParams({query: e.target.value})}
         />
-        <ButtonSt variant="contained" type="submit">
+        {/* <ButtonSt variant="contained" type="submit">
           <SearchIcon fontSize="large" />
-        </ButtonSt>
+        </ButtonSt> */}
       </FormSt>
       {isLoaderShown && <LinearProgress />}
       <ul>{querySt.length !== 0 && <FilmList films={querySt} />}</ul>
